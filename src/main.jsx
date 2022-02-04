@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import UserProvider from "./auth/UserProvider";
 import "./styles/reset.css";
 import "./styles/global.css";
+import 'bootstrap/dist/css/bootstrap.css'
 
 ReactDOM.render(
 	<React.StrictMode>
