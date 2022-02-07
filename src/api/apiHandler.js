@@ -1,20 +1,21 @@
 import axios from "axios";
 
 const service = axios.create({
-	baseURL: import.meta.env.VITE_APP_BACKEND_URL,
-	withCredentials: true,
+  baseURL: import.meta.env.VITE_APP_BACKEND_URL,
+  withCredentials: true,
 });
 
 //! Error handling to use in the catch
 function errorHandler(error) {
-	if (error.response.data) {
-		console.log(error.response && error.response.data);
-		throw error;
-	}
-	throw error;
+  if (error.response.data) {
+    console.log(error.response && error.response.data);
+    throw error;
+  }
+  throw error;
 }
 
 const apiHandler = {
+<<<<<<< HEAD
 	// Service is spread to have access to the basics get/post...
 	...service,
 
@@ -61,9 +62,41 @@ const apiHandler = {
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
+=======
+  // Service is spread to have access to the basics get/post...
+  ...service,
+
+  signup(userInfo) {
+    return service
+      .post("/api/auth/signup", userInfo)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+  isLoggedIn(token) {
+    return service
+      .get("/api/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  signin(userInfo) {
+    return service
+      .post("/api/auth/signin", userInfo)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+
+  getAllUsers() {
+    return service
+      .get("/api/users")
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
+>>>>>>> 7e19e0640a137cb9974c9a555277ae7896cc94c3
 };
 
 export default apiHandler;
-
 
 // export default {}
