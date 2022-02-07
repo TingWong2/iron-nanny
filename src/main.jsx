@@ -6,6 +6,7 @@ import UserProvider from "./auth/UserProvider";
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles/reset.css";
 import "./styles/global.css";
+import 'bootstrap/dist/css/bootstrap.css'
 
 ReactDOM.render(
   <React.StrictMode>
