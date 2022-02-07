@@ -24,10 +24,10 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/family" element={<List />} />
         <Route path="/nanny" element={<List />} />
+        <Route path="/profile" element={<Profile />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile" element={<UserProfile />} />
+          {/*<Route path="/profile" element={<UserProfile />} /><<*/}
           <Route path="/profile/:id" element={<FormProfile />} />
           <Route path="/users/family" element={<UserList />} />
           <Route path="/users/nanny" element={<UserList />} />
