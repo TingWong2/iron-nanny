@@ -2,8 +2,10 @@ import axios from "axios";
 
 const service = axios.create({
 	baseURL: import.meta.env.VITE_APP_BACKEND_URL,
-	withCredentials: true,
+	withCredentials: true,	
 });
+
+
 
 //! Error handling to use in the catch
 function errorHandler(error) {
@@ -40,9 +42,15 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
-	 getAllUsers() {
+	 getAllUsers(role) {
 	 	return service
-		.get("/api/users")
+		.get("/api/users/" + role)
+	 		.then((res) => res.data)
+	 		.catch(errorHandler);
+	 },
+	 getAllFamilies() {
+	 	return service
+		.get("/api/users/family")
 	 		.then((res) => res.data)
 	 		.catch(errorHandler);
 	 },
