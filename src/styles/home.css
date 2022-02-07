@@ -1,0 +1,26 @@
+
+.jumbotron {
+	background: url("../assets/backGround.jpg") no-repeat center center;
+	background-size: cover;
+	height: 100vh;
+  }
+  
+  .jumbotron > div {
+	position: relative;
+	top: 40em;
+	color: white;
+	text-shadow: 5px 5px 5px black;
+ 
+  }
+
+  
+.btnHome {
+    text-align: center;
+  
+  }
+
+#homeSignIn {
+    text-align: center;
+    padding: px;
+    margin: 10px;
+}
