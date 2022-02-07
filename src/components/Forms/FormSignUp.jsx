@@ -10,7 +10,7 @@ const FormSignUp = () => {
     age: 0,
     email: "",
     password: "",
-    adress: "",
+    address: "",
     phone: "",
     experience: "",
     resume: "",

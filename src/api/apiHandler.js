@@ -9,11 +9,11 @@ const service = axios.create({
 
 //! Error handling to use in the catch
 function errorHandler(error) {
-	if (error.response.data) {
-		console.log(error.response && error.response.data);
-		throw error;
-	}
-	throw error;
+  if (error.response.data) {
+    console.log(error.response && error.response.data);
+    throw error;
+  }
+  throw error;
 }
 
 const apiHandler = {
@@ -26,6 +26,21 @@ const apiHandler = {
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
+
+	getUser(id) {
+		return service
+			.get("/api/users" + id)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+
+	updateUser(userInfo, id) {
+		return service
+			.patch("/api/users/" + id, userInfo)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+
 	isLoggedIn(token) {
 		return service
 			.get("/api/auth/me", {
@@ -48,15 +63,9 @@ const apiHandler = {
 	 		.then((res) => res.data)
 	 		.catch(errorHandler);
 	 },
-	 getAllFamilies() {
-	 	return service
-		.get("/api/users/family")
-	 		.then((res) => res.data)
-	 		.catch(errorHandler);
-	 },
+
 };
 
 export default apiHandler;
-
 
 // export default {}
