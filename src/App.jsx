@@ -27,8 +27,14 @@ function App() {
         <Route path="/profile" element={<Profile />} />
 
         <Route element={<PrivateRoute />}>
+<<<<<<< HEAD
           {/*<Route path="/profile" element={<UserProfile />} /><<*/}
           <Route path="/profile/:id" element={<FormProfile />} />
+=======
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile/edit/" element={<FormProfile />} />
+>>>>>>> eb153c4e073aad443c2ffe27b71c5fc8b9ffd906
           <Route path="/users/family" element={<UserList />} />
           <Route path="/users/nanny" element={<UserList />} />
           <Route path="/users/likes/family" element={<UserLikes />} />
