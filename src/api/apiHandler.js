@@ -24,6 +24,21 @@ const apiHandler = {
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
+
+	getUser(id) {
+		return service
+			.get("/api/users" + id)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+
+	updateUser(userInfo, id) {
+		return service
+			.patch("/api/users/" + id, userInfo)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+
 	isLoggedIn(token) {
 		return service
 			.get("/api/auth/me", {
@@ -40,12 +55,12 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
-	 getAllUsers() {
-	 	return service
-		.get("/api/users")
-	 		.then((res) => res.data)
-	 		.catch(errorHandler);
-	 },
+	getAllUsers() {
+		return service
+			.get("/api/users")
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
 };
 
 export default apiHandler;
