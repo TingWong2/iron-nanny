@@ -38,7 +38,7 @@ const FormProfile = () => {
       const userInfo = await apiHandler.getUser
       delete userInfo.data._id;
       setValues({ ...userInfo.data });
-   }, [_id]);
+   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
