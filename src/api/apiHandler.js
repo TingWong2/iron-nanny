@@ -1,9 +1,11 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_BACKEND_URL,
-  withCredentials: true,
+	baseURL: import.meta.env.VITE_APP_BACKEND_URL,
+	withCredentials: true,	
 });
+
+
 
 //! Error handling to use in the catch
 function errorHandler(error) {
@@ -55,12 +57,22 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
+<<<<<<< HEAD
 	getAllUsers() {
 		return service
 			.get("/api/users")
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
+=======
+	 getAllUsers(role) {
+	 	return service
+		.get("/api/users/" + role)
+	 		.then((res) => res.data)
+	 		.catch(errorHandler);
+	 },
+
+>>>>>>> b73c8e3b3e03cfc98f340a8cdffd81a69f301cb0
 };
 
 export default apiHandler;
