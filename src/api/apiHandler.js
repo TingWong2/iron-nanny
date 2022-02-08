@@ -5,6 +5,16 @@ const service = axios.create({
   withCredentials: true,
 });
 
+<<<<<<< HEAD
+=======
+service.interceptors.request.use((config) => {
+	const token = localStorage.getItem("authToken");
+	config.headers.Authorization = token ?`Bearer ${token}` : "" ;
+	return config;
+})
+
+
+>>>>>>> 208520d4ca0b144dcd56f9d8005afef52d19d1f4
 //! Error handling to use in the catch
 function errorHandler(error) {
   if (error.response.data) {
@@ -48,12 +58,34 @@ const apiHandler = {
       .catch(errorHandler);
   },
 
+<<<<<<< HEAD
   signin(userInfo) {
     return service
       .post("/api/auth/signin", userInfo)
       .then((res) => res.data)
       .catch(errorHandler);
   },
+=======
+	signin(userInfo) {
+		return service
+			.post("/api/auth/signin", userInfo)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+	addMatched(id,userInfo) {
+		return service
+			.post("/api/matches/" + id, userInfo)
+			// .get("/api/matches/" + id)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+	getMatched(id) {
+		return service
+			.get("/api/matches/" + id)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+>>>>>>> 208520d4ca0b144dcd56f9d8005afef52d19d1f4
 
   getAllUsers(role) {
     return service
