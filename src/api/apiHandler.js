@@ -1,11 +1,9 @@
 import axios from "axios";
 
 const service = axios.create({
-	baseURL: import.meta.env.VITE_APP_BACKEND_URL,
-	withCredentials: true,	
+  baseURL: import.meta.env.VITE_APP_BACKEND_URL,
+  withCredentials: true,
 });
-
-
 
 //! Error handling to use in the catch
 function errorHandler(error) {
@@ -17,53 +15,59 @@ function errorHandler(error) {
 }
 
 const apiHandler = {
-	// Service is spread to have access to the basics get/post...
-	...service,
+  // Service is spread to have access to the basics get/post...
+  ...service,
 
-	signup(userInfo) {
-		return service
-			.post("/api/auth/signup", userInfo)
-			.then((res) => res.data)
-			.catch(errorHandler);
-	},
+  signup(userInfo) {
+    return service
+      .post("/api/auth/signup", userInfo)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 
-	getUser(id) {
-		return service
-			.get("/api/users" + id)
-			.then((res) => res.data)
-			.catch(errorHandler);
-	},
+  getUser(id) {
+    return service
+      .get("/api/users" + id)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 
-	updateUser(userInfo, id) {
-		return service
-			.patch("/api/users/" + id, userInfo)
-			.then((res) => res.data)
-			.catch(errorHandler);
-	},
+  updateUser(userInfo, id) {
+    return service
+      .patch("/api/users/" + id, userInfo)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 
-	isLoggedIn(token) {
-		return service
-			.get("/api/auth/me", {
-				headers: { Authorization: `Bearer ${token}` },
-			})
-			.then((res) => res.data)
-			.catch(errorHandler);
-	},
+  isLoggedIn(token) {
+    return service
+      .get("/api/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 
-	signin(userInfo) {
-		return service
-			.post("/api/auth/signin", userInfo)
-			.then((res) => res.data)
-			.catch(errorHandler);
-	},
+  signin(userInfo) {
+    return service
+      .post("/api/auth/signin", userInfo)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 
-	 getAllUsers(role) {
-	 	return service
-		.get("/api/users/" + role)
-	 		.then((res) => res.data)
-	 		.catch(errorHandler);
-	 },
+  getAllUsers(role) {
+    return service
+      .get("/api/users/" + role)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 
+  deleteUser(endpoint) {
+    return service
+      .delete(endpoint)
+      .then((res) => res.data)
+      .catch(errorHandler);
+  },
 };
 
 export default apiHandler;
