@@ -12,22 +12,35 @@ const FormSignUp = () => {
     password: "",
     address: "",
     phone: "",
+    availability: "",
     experience: "",
     resume: "",
     description: "",
-    availability: "",
     kidsNumber: 0,
     kidsAge: 0,
   });
 
   const [role, setRole] = useState(null);
   const [error, setError] = useState(null);
+
+  const [availabilityList, setAvailabilityList] = useState([]);
+
   const navigate = useNavigate();
   const pictureRef = useRef("");
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
   };
+
+  useEffect(() => {
+    apiHandler
+      .getAvailabilities()
+      .then((response) => {
+        console.log(response, "FETCHED AVAILABILITIES FRONT");
+        setAvailabilityList(response);
+      })
+      .catch((error) => setError(error.response.message));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,10 +52,10 @@ const FormSignUp = () => {
       password,
       address,
       phone,
+      availability,
       experience,
       resume,
       description,
-      availability,
       kidsNumber,
       kidsAge,
     } = values;
@@ -54,16 +67,16 @@ const FormSignUp = () => {
     formData.append("password", password);
     formData.append("address", address);
     formData.append("phone", phone);
+    formData.append("availability", availability);
     formData.append("experience", experience);
     formData.append("resume", resume);
     formData.append("description", description);
-    formData.append("availability", availability);
     formData.append("kidsNumber", kidsNumber);
     formData.append("kidsAge", kidsAge);
 
     formData.append("role", role);
     formData.append("picture", pictureRef.current.files[0]);
-    console.log(formData, ">>>>> SIGNUP DATA FROM FRONT");
+    console.log(formData, ">>>>> SIGNUP DATA FRONT");
 
     apiHandler
       .signup(formData)
@@ -165,6 +178,24 @@ const FormSignUp = () => {
             />
           </div>
 
+          {/* AVAILABILITY*/}
+          <div className="form-group col">
+            <label htmlFor="availability">Availability</label>
+            <select
+              name="availability"
+              id="availability"
+              className="form-control"
+              onChange={(e) =>
+                setValues({ ...values, availability: e.target.value })
+              }
+            >
+              {/* LIST FETCHED FROM BACK */}
+              {availabilityList.map((opt) => {
+                return <option value={opt}>{opt}</option>;
+              })}
+            </select>
+          </div>
+
           {/* PICTURE */}
           <div className="form-group">
             <label htmlFor="picture">Picture</label>
@@ -211,6 +242,7 @@ const FormSignUp = () => {
           {/* //CONDITIONAL RENDERING ROLE NANNY */}
           {role === "nanny" && (
             <>
+              {/* EXPERIENCE*/}
               <div className="form-group">
                 <label htmlFor="experience">Experience</label>
                 <input
@@ -225,6 +257,7 @@ const FormSignUp = () => {
                 />
               </div>
 
+              {/* RESUME*/}
               <div className="form-group">
                 <label htmlFor="resume">Resume</label>
                 <input
@@ -239,6 +272,7 @@ const FormSignUp = () => {
                 />
               </div>
 
+              {/* DESCRIPTION*/}
               <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <input
@@ -252,29 +286,13 @@ const FormSignUp = () => {
                   name="description"
                 />
               </div>
-
-              <div className="form-group col">
-                <label htmlFor="availability">Availability</label>
-                <select
-                  name="availability"
-                  id="availability"
-                  className="form-control"
-                  onChange={(e) =>
-                    setValues({ ...values, availability: e.target.value })
-                  }
-                >
-                  <option value="fullTime">Full Time</option>
-                  <option value="partTime">Part Time</option>
-                  <option value="evening">Evening</option>
-                  <option value="afterSchool">After School</option>
-                </select>
-              </div>
             </>
           )}
 
           {/* //CONDITIONAL RENDERING ROLE NANNY */}
           {role === "family" && (
             <>
+              {/* KIDS NUMBER*/}
               <div className="form-group">
                 <label htmlFor="kidsNumber">Number of kids</label>
                 <input
@@ -290,6 +308,8 @@ const FormSignUp = () => {
                   name="kidsNumber"
                 />
               </div>
+
+              {/* KIDS AGE*/}
               <div className="form-group">
                 <label htmlFor="kidsAge">Kids age</label>
                 <input

@@ -2,18 +2,22 @@ import axios from "axios";
 
 const service = axios.create({
 	baseURL: import.meta.env.VITE_APP_BACKEND_URL,
-	withCredentials: true,	
+	withCredentials: true,
 });
 
-
+service.interceptors.request.use((config) => {
+	const token = localStorage.getItem("authToken");
+	config.headers.Authorization = token ? `Bearer ${token}` : "";
+	return config;
+})
 
 //! Error handling to use in the catch
 function errorHandler(error) {
-  if (error.response.data) {
-    console.log(error.response && error.response.data);
-    throw error;
-  }
-  throw error;
+	if (error.response.data) {
+		console.log(error.response && error.response.data);
+		throw error;
+	}
+	throw error;
 }
 
 const apiHandler = {
@@ -34,7 +38,7 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
-	updateUser(userInfo, id) {
+	updateUser(id, userInfo) {
 		return service
 			.patch("/api/users/" + id, userInfo)
 			.then((res) => res.data)
@@ -57,24 +61,20 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
-<<<<<<< HEAD
-	getAllUsers() {
+	getAllUsers(role) {
 		return service
-			.get("/api/users")
+			.get("/api/users/" + role)
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
-=======
-	 getAllUsers(role) {
-	 	return service
-		.get("/api/users/" + role)
-	 		.then((res) => res.data)
-	 		.catch(errorHandler);
-	 },
 
->>>>>>> b73c8e3b3e03cfc98f340a8cdffd81a69f301cb0
+	getAvailabilities() {
+		return service
+			.get("/api/users/availabilities")
+			.then((res) => res.data)
+			.catch(errorHandler);
+	}
+
 };
 
 export default apiHandler;
-
-// export default {}

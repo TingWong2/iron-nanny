@@ -8,7 +8,6 @@ import PrivateRoute from "./components/ProtectedRoute/PrivateRoute";
 import UserLikes from "./pages/UserLikes";
 import UserList from "./pages/UserList";
 import UserMatchList from "./pages/UserMatchList";
-import UserProfile from "./pages/UserProfile";
 import UserMatch from "./pages/UserMatch";
 import FormProfile from "./components/Forms/FormProfile";
 import List from "./pages/List";
@@ -24,10 +23,10 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/family" element={<List />} />
         <Route path="/nanny" element={<List />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/" element={<Profile />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/profile/:id" element={<FormProfile />} />
+        <Route path="/users/edit/:id" element={<FormProfile />} />
           <Route path="/users/family" element={<UserList />} />
           <Route path="/users/nanny" element={<UserList />} />
           <Route path="/users/likes/family" element={<UserLikes />} />

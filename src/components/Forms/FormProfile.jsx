@@ -1,11 +1,10 @@
 import React from "react";
-
 import useForm from "../../hooks/useForm";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import apiHandler from "../../api/apiHandler";
-import useAuth from "../auth/useAuth"
+import useAuth from "../../auth/useAuth";
 
 const FormProfile = () => {
   const [values, setValues] = useState({
@@ -23,26 +22,50 @@ const FormProfile = () => {
     kidsAge: 0,
   });
 
-  const [role, setRole] = useState(null);
   const [error, setError] = useState(null);
-  
+
   const navigate = useNavigate();
   const pictureRef = useRef("");
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth();
+  const { id } = useParams();
 
-  const handleRoleChange = (e) => {
-    setRole(e.target.value);
-  };
+  const role = currentUser.role;
+  console.log(role, ">>>>> ROLE FROM CURRENT USER FRONT");
+  const currentId = currentUser._id;
+  console.log(currentId, ">>>>> ID FROM CURRENT USER FRONT");
 
-  useEffect(async () => {
-      const userInfo = await apiHandler.getUser
-      delete userInfo.data._id;
-      setValues({ ...userInfo.data });
-   }, []);
+  useEffect(() => {
+    apiHandler
+      .getAvailabilities()
+      .then((response) => {
+        console.log(response, "FETCHED AVAILABILITIES FRONT");
+        setAvailabilityList(response);
+      })
+      .catch((error) => setError(error.response.message));
+  }, []);
+
+  useEffect(() => {
+    const {
+      name,
+      age,
+      email,
+      password,
+      address,
+      phone,
+      experience,
+      resume,
+      description,
+      availability,
+      kidsNumber,
+      kidsAge,
+    } = currentUser;
+
+    if (currentId === id) setValues(currentUser);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const newUser = { ...values, role };
+
     const {
       name,
       age,
@@ -72,18 +95,15 @@ const FormProfile = () => {
     formData.append("kidsNumber", kidsNumber);
     formData.append("kidsAge", kidsAge);
 
-    formData.append("role", role);
     formData.append("picture", pictureRef.current.files[0]);
-    console.log(formData, ">>>>> SIGNUP DATA FROM FRONT");
+    console.log(formData, ">>>>> EDIT DATA FROM FRONT");
 
     apiHandler
-      .signup(formData)
+      .updateUser(currentId, formData)
       .then(() => {
-        navigate("/signin");
+        navigate("/users/profile");
       })
-      .catch((error) => {
-        setError(error.response.message);
-      });
+      .catch((error) => setError(error.response.message));
   };
 
   return (
@@ -92,7 +112,7 @@ const FormProfile = () => {
         {error && <h3 className="error">{error.message}</h3>}
 
         <form className="d-flex flex-column mb-3" onSubmit={handleSubmit}>
-          <h2>Signup</h2>
+          <h2>Edit Profile</h2>
 
           {/* NAME */}
           <div className="form-group">
@@ -176,6 +196,24 @@ const FormProfile = () => {
             />
           </div>
 
+          {/* AVAILABILITY*/}
+          <div className="form-group col">
+            <label htmlFor="availability">Availability</label>
+            <select
+              name="availability"
+              id="availability"
+              className="form-control"
+              onChange={(e) =>
+                setValues({ ...values, availability: e.target.value })
+              }
+            >
+              {/* LIST FETCHED FROM BACK */}
+              {availabilityList.map((opt) => {
+                return <option value={opt}>{opt}</option>;
+              })}
+            </select>
+          </div>
+
           {/* PICTURE */}
           <div className="form-group">
             <label htmlFor="picture">Picture</label>
@@ -188,39 +226,8 @@ const FormProfile = () => {
             />
           </div>
 
-          {/* ROLE */}
-          <div className="form-group mt-4">
-            <div className="form-control form-control-lg">
-              <div className="form-row">
-                <p className="col-2">Who are you?</p>
-                <div className="form-check-inline col-2 align-items-baseline">
-                  <input
-                    type="radio"
-                    id="nanny"
-                    name="role"
-                    value="nanny"
-                    className="form-check-input"
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="nanny">Nanny</label>
-                </div>
-                <div className="form-check-inline col-2 align-items-baseline">
-                  <input
-                    type="radio"
-                    id="family"
-                    name="role"
-                    value="family"
-                    className="form-check-input"
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="family">family</label>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* //CONDITIONAL RENDERING ROLE NANNY */}
-          {role === "nanny" && (
+          {role[0] === "nanny" && (
             <>
               <div className="form-group">
                 <label htmlFor="experience">Experience</label>
@@ -236,6 +243,7 @@ const FormProfile = () => {
                 />
               </div>
 
+              {/* RESUME*/}
               <div className="form-group">
                 <label htmlFor="resume">Resume</label>
                 <input
@@ -250,6 +258,7 @@ const FormProfile = () => {
                 />
               </div>
 
+              {/* DESCRIPTION*/}
               <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <input
@@ -264,6 +273,7 @@ const FormProfile = () => {
                 />
               </div>
 
+              {/* AVAILABILITY*/}
               <div className="form-group col">
                 <label htmlFor="availability">Availability</label>
                 <select
@@ -284,8 +294,9 @@ const FormProfile = () => {
           )}
 
           {/* //CONDITIONAL RENDERING ROLE NANNY */}
-          {role === "family" && (
+          {role[0] === "family" && (
             <>
+              {/* KIDS NUMBER */}
               <div className="form-group">
                 <label htmlFor="kidsNumber">Number of kids</label>
                 <input
@@ -301,6 +312,8 @@ const FormProfile = () => {
                   name="kidsNumber"
                 />
               </div>
+
+              {/* KIDS AGE*/}
               <div className="form-group">
                 <label htmlFor="kidsAge">Kids age</label>
                 <input
@@ -325,8 +338,5 @@ const FormProfile = () => {
     </>
   );
 };
-
-export default FormSignUp;
-
 
 export default FormProfile;
