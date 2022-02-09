@@ -14,15 +14,15 @@ const Home = () => {
 
 		
 			<div className="mb-3" id="homeSignIn">
-				<label forHTML="formGroupExampleInput" class="form-label"> </label>
-				<input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your email"/>
+				<label htmlFor="formGroupExampleInput" className="form-label"> </label>
+				<input type="text" className="form-control" id="formGroupExampleInput" placeholder="Your email"/>
 			</div>
 			<div className="mb-3" id="homeSignIn">
-				<label forHTML="formGroupExampleInput2" class="form-label"> </label>
-				<input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Your password"/>
+				<label htmlFor="formGroupExampleInput2" className="form-label"> </label>
+				<input type="password" className="form-control" id="formGroupExampleInput2" placeholder="Your password"/>
 			</div>
 			<div className="btnHome">
-				<button type="submit" className="btn btn-primary">Submit</button>
+				<button type="submit" className="btn btn-primary">Login</button>
 			</div>
 		</>
 	);
