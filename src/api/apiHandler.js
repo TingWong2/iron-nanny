@@ -61,13 +61,10 @@ const apiHandler = {
       .catch(errorHandler);
   },
   addMatched(id, userInfo) {
-    return (
-      service
-        .post("/api/matches/" + id, userInfo)
-        // .get("/api/matches/" + id)
-        .then((res) => res.data)
-        .catch(errorHandler)
-    );
+    return service
+      .post("/api/matches/" + id, userInfo)
+      .then((res) => res.data)
+      .catch(errorHandler);
   },
   getMatched(id) {
     return service
