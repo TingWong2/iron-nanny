@@ -7,6 +7,9 @@ const NavMain = () => {
   console.log(currentUser);
   return (
     <nav className="NavMain navbar">
+      <NavLink className="myProfile" to="/profile">
+        Profile
+      </NavLink>
       <NavLink className="logo" to="/">
         App name
       </NavLink>

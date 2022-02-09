@@ -1,15 +1,15 @@
 import axios from "axios";
 
 const service = axios.create({
-	baseURL: import.meta.env.VITE_APP_BACKEND_URL,
-	withCredentials: true,
+  baseURL: import.meta.env.VITE_APP_BACKEND_URL,
+  withCredentials: true,
 });
 
 service.interceptors.request.use((config) => {
-	const token = localStorage.getItem("authToken");
-	config.headers.Authorization = token ? `Bearer ${token}` : "";
-	return config;
-})
+  const token = localStorage.getItem("authToken");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+  return config;
+});
 
 //! Error handling to use in the catch
 function errorHandler(error) {
@@ -38,7 +38,7 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
-	updateUser(id, userInfo) {
+	updateUser(userInfo, id) {
 		return service
 			.patch("/api/users/" + id, userInfo)
 			.then((res) => res.data)
@@ -60,6 +60,18 @@ const apiHandler = {
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
+	addMatched(id, userInfo) {
+		return service
+			.post("/api/matches/" + id, userInfo)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+	getMatched(id) {
+		return service
+			.get("/api/matches/" + id)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
 
 	getAllUsers(role) {
 		return service
@@ -73,8 +85,21 @@ const apiHandler = {
 			.get("/api/users/availabilities")
 			.then((res) => res.data)
 			.catch(errorHandler);
-	}
+	},
 
+	deleteUser(endpoint) {
+		return service
+			.delete(endpoint)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
+
+	findMatchList(endpoint) {
+		return service
+			.get(endpoint)
+			.then((res) => res.data)
+			.catch(errorHandler);
+	},
 };
 
 export default apiHandler;

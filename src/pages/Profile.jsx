@@ -1,62 +1,85 @@
 import React, { useEffect } from "react";
-import useAuth from "../auth/useAuth"
+import useAuth from "../auth/useAuth";
 import { useState } from "react";
 import apiHandler from "../api/apiHandler";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+
 
 const Profile = () => {
+  const { currentUser, removeUser } = useAuth();
+  const navigate = useNavigate()
+  console.log("this is the current user from auth", currentUser);
 
-	const {currentUser} = useAuth()
-	console.log('this is the current user from auth', currentUser)
 
+  async function handleDelete() {
+
+    const userID = currentUser._id
+
+    const endpoint = `/api/users/${userID}`
+    try {
+      const deletedUser = await apiHandler.deleteUser(endpoint)
+      console.log('deletedUser', deletedUser)
+      alert("votre profil va être supprimé...")
+      removeUser()
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <div className="container d-flex justify-content-center ml-auto">
-	{currentUser.role === "nanny" && (  
-      <div className="card mb-3">
-        <img
-          src="{currentUser.picture}"
-          alt="profile.name"
-          className="card-img-top"
-        />
-        <div className="card-body">
-          <h5 className="card-title">{currentUser.name}</h5>
-		  <p className="card-text">{currentUser.age}</p>
-          <p className="card-text">{currentUser.address}</p>
-          <p className="card-text">{currentUser.cellphone}</p>
-          <p className="card-text">{currentUser.resume}</p>
-          <p className="card-text">Available: {currentUser.availability}</p>
-          <button>Update my profile</button>
-          <button>Delete my profile</button>
-		   
+      {currentUser.role[0] === "nanny" && (
+        <div className="card mb-3">
+          <img
+            src={currentUser.picture}
+            alt="profile.name"
+            className="card-img-top"
+          />
+          <div className="card-body">
+            <h5 className="card-title">{currentUser.name}</h5>
+            <p className="card-text">{currentUser.age}</p>
+            <p className="card-text">{currentUser.address}</p>
+            <p className="card-text">{currentUser.phone}</p>
+            <p className="card-text">{currentUser.resume}</p>
+            <p className="card-text">Available: {currentUser.availability}</p>
+            <FontAwesomeIcon icon={faEdit} />
+            <a href={`/users/edit/${currentUser._id}`} target="_top">
+              Update my profile
+            </a>
+            <FontAwesomeIcon icon={faTrash} />
+            <button onClick={handleDelete}>Delete my profile</button>
+          </div>
         </div>
-      </div>
-	)}
-	
-	{currentUser.role === "family" && (
-		<div className="card mb-3">
-        <img
-          src="{currentUser.picture}"
-          alt="profile.name"
-          className="card-img-top"
-        />
-        <div className="card-body">
-          <h5 className="card-title">{currentUser.name}</h5>
-          <p className="card-text">{currentUser.address}</p>
-          <p className="card-text">{currentUser.cellphone}</p>
-          <p className="card-text">{currentUser.numberOfKids}</p>
-		  <p className="card-text">{currentUser.kidsAge}</p>
-          <p className="card-text">Available: {currentUser.availability}</p>
-		  <p className="card-text">{currentUser.description}</p>
-          <button>Update my profile</button>
-          <button>Delete my profile</button>
-		   
+      )}
+
+      {currentUser.role[0] === "family" && (
+        <div className="card mb-3">
+          <img
+            src={currentUser.picture}
+            alt="profile.name"
+            className="card-img-top"
+          />
+          <div className="card-body">
+            <h5 className="card-title">{currentUser.name}</h5>
+            <p className="card-text">{currentUser.address}</p>
+            <p className="card-text">{currentUser.phone}</p>
+            <p className="card-text">{currentUser.numberOfKids}</p>
+            <p className="card-text">{currentUser.kidsAge}</p>
+            <p className="card-text">Available: {currentUser.availability}</p>
+            <p className="card-text">{currentUser.description}</p>
+            <FontAwesomeIcon icon={faEdit} />
+            <a href={`/users/edit/${currentUser._id}`}>
+              Update my profile
+            </a>
+            <FontAwesomeIcon icon={faTrash} />
+            <button onClick={handleDelete}>Delete my profile</button>
+          </div>
         </div>
-      </div>
-
-	)}
-
-	</div>
-  
+      )}
+    </div>
   );
 };
 
