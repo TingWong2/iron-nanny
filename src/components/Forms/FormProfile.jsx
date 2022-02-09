@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import apiHandler from "../../api/apiHandler";
-import useAuth from "../auth/useAuth"
+import useAuth from "../../auth/useAuth"
 
 const FormProfile = () => {
   const [values, setValues] = useState({
@@ -325,8 +325,6 @@ const FormProfile = () => {
     </>
   );
 };
-
-export default FormSignUp;
 
 
 export default FormProfile;
