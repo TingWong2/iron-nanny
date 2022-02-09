@@ -2,10 +2,10 @@ import React from "react";
 
 import useForm from "../../hooks/useForm";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import apiHandler from "../../api/apiHandler";
-import useAuth from "../auth/useAuth"
+import useAuth from "../../auth/useAuth";
 
 const FormProfile = () => {
   const [values, setValues] = useState({
@@ -25,20 +25,20 @@ const FormProfile = () => {
 
   const [role, setRole] = useState(null);
   const [error, setError] = useState(null);
-  
+
   const navigate = useNavigate();
   const pictureRef = useRef("");
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth();
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
   };
 
   useEffect(async () => {
-      const userInfo = await apiHandler.getUser
-      delete userInfo.data._id;
-      setValues({ ...userInfo.data });
-   }, [_id]);
+    const userInfo = await apiHandler.getUser;
+    delete userInfo.data._id;
+    setValues({ ...userInfo.data });
+  }, [_id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -325,8 +325,5 @@ const FormProfile = () => {
     </>
   );
 };
-
-export default FormSignUp;
-
 
 export default FormProfile;
