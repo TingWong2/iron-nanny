@@ -1,9 +1,9 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import apiHandler from "../api/apiHandler";
+import useAuth from "../auth/useAuth";
 
-const matchAPIList = [
+/*const matchAPIList = [
   {
     nanny: {
       name: "Marie-Noel France",
@@ -35,7 +35,7 @@ const matchAPIList = [
       availability: "fullTime",
     },
 
-    /*family: {
+    family: {
       name: "Caroline Smith",
       role: "family",
       age: 35,
@@ -49,16 +49,18 @@ const matchAPIList = [
       description:
         "Pierre is full of energy, he likes reading and playing football",
       availability: "afterSchool",
-    },*/
+    },
 
   },
 ];
 
-console.log("matchAPIList>>>>>>>>", matchAPIList[0].nanny)
+console.log("matchAPIList>>>>>>>>", matchAPIList[0].nanny)*/
+
 
 const UserMatchList = () => {
 
   const [match, setMatch] = useState([]);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const endpoint = "/api/matches/matchList";
@@ -71,18 +73,48 @@ const UserMatchList = () => {
   }, []);
 
   return (
-  <div>
+    <div>
 
-    {matchAPIList.map((el)=>{
-      return (
-        <div className="card">
-        <p>{el.nanny.name}</p>
-        </div>
-      )
-    })}
-
-  </div>
-  )
-};
+      {match.map((el) => {
+        return (
+          <div key="match_id">
+            {currentUser.role[0] === "family" &&
+              (
+                <>
+                  <img src={el.nanny.picture} alt={el.nanny.name} />
+                  <div className="card-body">
+                    <p className="card-text">{el.nanny.name}</p>
+                    <p className="card-text">{el.nanny.age}</p>
+                    <p className="card-text">{el.nanny.email}</p>
+                    <p className="card-text">{el.nanny.phone}</p>
+                    <p className="card-text">{el.nanny.address}</p>
+                    <p className="card-text">{el.nanny.resume}</p>
+                    <p className="card-text">{el.nanny.availability}</p>
+                  </div>
+                </>
+              )}
+            {currentUser.role[0] === "nanny" &&
+              (
+                <>
+                  <img src={el.family.picture} alt={el.family.name} />
+                  <div className="card-body">
+                    <p className="card-text">{el.family.name}</p>
+                    <p className="card-text">{el.family.age}</p>
+                    <p className="card-text">{el.family.email}</p>
+                    <p className="card-text">{el.family.phone}</p>
+                    <p className="card-text">{el.family.address}</p>
+                    <p className="card-text">{el.family.numberOfKids}</p>
+                    <p className="card-text">{el.family.kidsAge}</p>
+                    <p className="card-text">{el.family.description}</p>
+                    <p className="card-text">{el.nanny.availability}</p>
+                  </div>
+                </>
+              )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default UserMatchList;
