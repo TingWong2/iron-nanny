@@ -124,19 +124,29 @@ const UserMatchList = () => {
                     className="card-img-top"
                   />
                   <div className="card-body">
-                    <p className="card-text">{el.family.name}</p>
-                    <p className="card-text">{el.family.age}</p>
-                    <p className="card-text">{el.family.email}</p>
+                    <p className="card-title">
+                      {el.nanny.name} - <span></span> {el.family.age} ans
+                    </p>
+                    <p className="card-text">
+                      <i class="fa-solid fa-inbox"></i>
+                      {el.family.email}
+                    </p>
                     <p className="card-text">
                       {" "}
                       <i class="fa-solid fa-square-phone"></i>
                       {el.family.phone}
                     </p>
-                    <p className="card-text">{el.family.address}</p>
-                    <p className="card-text">{el.family.numberOfKids}</p>
-                    <p className="card-text">{el.family.kidsAge}</p>
-                    <p className="card-text">{el.family.description}</p>
-                    <p className="card-text">{el.nanny.availability}</p>
+                    <p className="card-text">
+                      <i className="fa-solid fa-envelope"></i>
+                      {el.family.address}
+                    </p>
+                    <p className="card-text">Number of kids: <span></span>{el.family.numberOfKids}</p>
+                    <p className="card-text">Kids age: <span></span>{el.family.kidsAge}</p>
+                    <p className="card-text">Description: <span></span> {el.family.description}</p>
+                    <p className="card-text">
+                      Avaibility: <span></span>
+                      {el.family.availability}
+                    </p>
                   </div>
                 </>
               )}

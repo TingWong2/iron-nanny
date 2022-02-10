@@ -8,10 +8,10 @@ const NavMain = () => {
   return (
     <nav className="NavMain bg-light">
       {currentUser && currentUser.role[0] === "nanny" && (
-        <NavLink to="/users"> Users</NavLink>
+        <NavLink to="/users"> Families </NavLink>
       )}
       {currentUser && currentUser.role[0] === "family" && (
-        <NavLink to="/users"> Users</NavLink>
+        <NavLink to="/users"> Nannies</NavLink>
       )}
 
       {isLoggedIn && (
