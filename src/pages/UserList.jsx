@@ -15,29 +15,6 @@ import {
 const UserList = () => {
   const [count, setCount] = useState(0);
 
-  // const initialUser = {
-  //   nanny: [
-  //     {
-  //       picture:
-  //         "https://res.cloudinary.com/dgblvjmrn/image/upload/v1642427161/images-4_rcjqon.jpg",
-  //       name: "Caroline Smith",
-  //       role: "family",
-  //       password: "",
-  //       email: "",
-  //     },
-  //   ],
-  //   family: [
-  //     {
-  //       picture:
-  //         "https://res.cloudinary.com/dgblvjmrn/image/upload/v1642427168/84_zstpqh.jpg",
-  //       name: "Lynda Dupond",
-  //       role: "nanny",
-  //       password: "lyndaDupond",
-  //       email: "lynda.dupond@gmail.com",
-  //     },
-  //   ],
-  // };
-
   const { currentUser } = useAuth();
 
   let role = currentUser.role;
@@ -55,17 +32,11 @@ const UserList = () => {
   //const [clicked, setClicked]= useState(false);
 
   useEffect(async () => {
-    const apiProfiles = await apiHandler.getAllUsers(theirRole);
-    const fetchedProfiles = [...apiProfiles];
+    const apiProfiles = await apiHandler.getAllUsers();
+    console.log(apiProfiles);
+    const apiProfilesArray = apiProfiles.users;
+    const fetchedProfiles = [...apiProfilesArray];
     setUsers(fetchedProfiles);
-
-    /*try {
-    const apiMatch = await apiHandler.getMatched(likedId);    //get on my new matches collection 
-      console.log(apiMatch);
-     
-     } catch(error) {
-       console.error(error);
-     }*/
   }, []);
 
   useEffect(() => {
@@ -90,9 +61,9 @@ const UserList = () => {
     setMatched(false);
   };
 
-  const handleBack = () => {
-    setMatched(false);
-  };
+  // const handleBack = () => {
+  //   setMatched(false);
+  // };
 
   const likedId = users[count]?._id;
   const likerId = currentUser._id;
@@ -106,7 +77,6 @@ const UserList = () => {
       "A new like has been added to the Like collection",
       apiMatch.liked
     );
-    console.log(liked);
 
     if (apiMatch.liked === true) setLiked(true);
 
@@ -117,6 +87,7 @@ const UserList = () => {
       isUserLiked  = true;
     }
     console.log(isUserLiked);*/
+    
     if (apiMatch.matched === true) {
       console.log(
         "A new like has been added to the Like collection",
@@ -128,22 +99,36 @@ const UserList = () => {
 
   return (
     <div className="container">
-      <div>the liked state is {liked}</div>
       {matched === false && (
         <>
           <div className="card">
-            <h1>
-              {users[count]?.name} - {users[count]?.role}
-            </h1>
-            <span style={{ fontSize: "0.7em" }}>liked id :{likedId}</span>
-            <span style={{ fontSize: "0.7em" }}>liker id :{likerId}</span>
             <img src={users[count]?.picture} alt={users[count]?.name} />
+            <div className="card-body">
+              <h5 className="card-title">{users[count]?.name}</h5>
+              <p className="card-text">{users[count]?.age}</p>
+              <p className="card-text">{users[count]?.address}</p>
+              {currentUser.role[0] === "family" && (
+                <>
+                  <p className="card-text">{users[count]?.resume}</p>
+                  <p className="card-text">{users[count]?.availability}</p>
+                </>
+              )}
+              {currentUser.role[0] === "nanny" && (
+                <>
+                  <p className="card-text">{users[count]?.numberOfKids}</p>
+                  <p className="card-text">{users[count]?.kidsAge}</p>
+                  <p className="card-text">{users[count]?.description}</p>
+                  <p className="card-text">{users[count]?.availability}</p>
+                </>
+              )}
+            </div>
           </div>
-          <div className="container text-center">
-            <button onClick={() => handleLeft()}>
-              <FontAwesomeIcon icon={faAngleLeft} />
-            </button>
-            {!liked && (
+
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <a href="#" onClick={() => handleLeft()}>
+              <FontAwesomeIcon icon={faAngleLeft} size="3x" />
+            </a>
+            {liked === false && (
               <FontAwesomeIcon
                 icon={faHeart}
                 size="5x"
@@ -159,33 +144,64 @@ const UserList = () => {
                 onClick={handleClick}
               />
             )}
-            {back === true && (
+
+            {/* {back === true && (
               <button className="btn btn-primary">Already matched </button>
-            )}
+            )} */}
+            
             <button onClick={() => handleRight()}>
               <FontAwesomeIcon icon={faAngleRight} />
             </button>
+            <a href="#" onClick={() => handleRight()}>
+              <FontAwesomeIcon icon={faAngleRight} size="3x" />
+            </a>
           </div>
         </>
       )}
       {matched === true && (
-        <>
-          <p>{users[count].name}</p>
-          <p>{currentUser.name}</p>
-          <div className="container text-center">
-            <button onClick={() => handleLeft()}>
-              <FontAwesomeIcon icon={faAngleLeft} />
-            </button>
-            <FontAwesomeIcon
-              icon={faAddressCard}
-              size="2x"
-              onClick={handleBack}
+        <div>
+          <div className="card">
+            <h2>
+              It is a match !{" "}
+              <i className="fas fa-heart" style={{ color: "red" }}></i>
+            </h2>
+            <p>
+              Here you are the contact informations of your mattch, feel free to
+              contact her/him
+            </p>
+            <img
+              src={users[count].picture}
+              className="card-img-top"
+              alt={users[count].name}
             />
-            <button onClick={() => handleRight()}>
-              <FontAwesomeIcon icon={faAngleRight} />
-            </button>
+            <div className="card-body">
+              <h5 className="card-title">{users[count].name} </h5>
+              <p className="card-text">
+                <i className="fas fa-mobile-alt mr-2"></i>
+                {users[count].phone}
+              </p>
+              <p className="card-text">
+                <i className="fas fa-envelope"></i>
+                {users[count].address}
+              </p>
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <a href="#" className="text-left" onClick={() => handleLeft()}>
+                <FontAwesomeIcon icon={faAngleLeft} size="3x" />
+              </a>
+              <FontAwesomeIcon
+                icon={faCheck}
+                size="5x"
+                color="green"
+                onClick={handleClick}
+              />
+              <a href="#" onClick={() => handleRight()}>
+                <FontAwesomeIcon icon={faAngleRight} size="3x" />
+              </a>
+            </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

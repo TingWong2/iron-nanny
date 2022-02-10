@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import "../styles/userMatchList.css";
 
 
 const Profile = () => {
@@ -41,16 +42,20 @@ const Profile = () => {
           <div className="card-body">
             <h5 className="card-title">{currentUser.name}</h5>
             <p className="card-text">{currentUser.age}</p>
-            <p className="card-text">{currentUser.address}</p>
-            <p className="card-text">{currentUser.phone}</p>
-            <p className="card-text">{currentUser.resume}</p>
+            <p className="card-text"><i class="fa-solid fa-inbox"></i>{currentUser.address}</p>
+            <p className="card-text"><i className="fa-solid fa-square-phone"></i>{currentUser.phone}</p>
+            <p className="card-text">
+                      <i className="fa-solid fa-envelope"></i>
+                      {currentUser.address}
+                    </p>
+            <p className="card-text">Resume:{currentUser.resume}</p>
             <p className="card-text">Available: {currentUser.availability}</p>
             <FontAwesomeIcon icon={faEdit} />
             <a href={`/users/edit/${currentUser._id}`} target="_top">
               Update my profile
             </a>
             <FontAwesomeIcon icon={faTrash} />
-            <button onClick={handleDelete}>Delete my profile</button>
+            <button onClick={handleDelete}><FontAwesomeIcon icon={faTrash} /> Delete </button>
           </div>
         </div>
       )}
@@ -63,19 +68,19 @@ const Profile = () => {
             className="card-img-top"
           />
           <div className="card-body">
-            <h5 className="card-title">{currentUser.name}</h5>
-            <p className="card-text">{currentUser.address}</p>
-            <p className="card-text">{currentUser.phone}</p>
-            <p className="card-text">{currentUser.numberOfKids}</p>
-            <p className="card-text">{currentUser.kidsAge}</p>
+            <h1 className="card-title">{currentUser.name}</h1>
+            <p className="card-text"><i class="fa-solid fa-inbox"></i> {currentUser.email}</p>
+            <p className="card-text"><i className="fa-solid fa-envelope"></i>{currentUser.address}</p>
+            <p className="card-text"><i className="fa-solid fa-square-phone"></i>{currentUser.phone}</p>
+            <p className="card-text">Number of kids: {currentUser.numberOfKids}</p>
+            <p className="card-text">Kids age: {currentUser.kidsAge}</p>
             <p className="card-text">Available: {currentUser.availability}</p>
             <p className="card-text">{currentUser.description}</p>
             <FontAwesomeIcon icon={faEdit} />
             <a href={`/users/edit/${currentUser._id}`}>
               Update my profile
-            </a>
-            <FontAwesomeIcon icon={faTrash} />
-            <button onClick={handleDelete}>Delete my profile</button>
+            </a> <br />
+            <button onClick={handleDelete}><FontAwesomeIcon icon={faTrash} /> Delete </button>
           </div>
         </div>
       )}

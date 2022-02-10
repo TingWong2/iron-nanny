@@ -1,0 +1,29 @@
+
+
+.card {
+    flex-direction: row;
+}
+
+.card-body {
+    background-color: rgb(255,239,232);
+
+}
+.card img {
+    width: 100%;
+    border-right: 1px solid;
+    
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-family: 'Circular, -apple-system, "system-ui", Roboto, "Helvetica Neue", sans-serif';
+    text-align: center;
+}   
+
+.card-text {
+    font-size: 1.0rem;
+    text-align: left;
+    line-height: 1.5rem;
+}
+
+

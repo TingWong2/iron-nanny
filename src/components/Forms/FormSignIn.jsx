@@ -11,7 +11,7 @@ const FormSignIn = () => {
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { storeToken, authenticateUser } = useAuth();
+  const { storeToken, authenticateUser, currentUser } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +21,8 @@ const FormSignIn = () => {
         console.log(res);
         storeToken(res.authToken);
         authenticateUser();
-        navigate("/");
+        console.log(currentUser);
+        navigate("/users");
       })
       .catch((e) => {
         setError(e.response.data);

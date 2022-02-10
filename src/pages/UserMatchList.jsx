@@ -1,9 +1,11 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import apiHandler from "../api/apiHandler";
+import useAuth from "../auth/useAuth";
+import "../styles/userMatchList.css";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const matchAPIList = [
+/*const matchAPIList = [
   {
     nanny: {
       name: "Marie-Noel France",
@@ -35,7 +37,7 @@ const matchAPIList = [
       availability: "fullTime",
     },
 
-    /*family: {
+    family: {
       name: "Caroline Smith",
       role: "family",
       age: 35,
@@ -49,16 +51,16 @@ const matchAPIList = [
       description:
         "Pierre is full of energy, he likes reading and playing football",
       availability: "afterSchool",
-    },*/
+    },
 
   },
 ];
 
-console.log("matchAPIList>>>>>>>>", matchAPIList[0].nanny)
+console.log("matchAPIList>>>>>>>>", matchAPIList[0].nanny)*/
 
 const UserMatchList = () => {
-
   const [match, setMatch] = useState([]);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const endpoint = "/api/matches/matchList";
@@ -71,18 +73,79 @@ const UserMatchList = () => {
   }, []);
 
   return (
-  <div>
+    <div>
+      {match.map((el) => {
+        return (
+          <div
+            key="match._id"
+            className="container d-flex justify-content-center ml-auto"
+          >
+            <div className="card mb-3">
+              {currentUser.role[0] === "family" && (
+                <>
+                  <img
+                    src={el.nanny.picture}
+                    alt={el.nanny.name}
+                    className="card-img-top"
+                  />
+                  <div className="card-body">
+                    <p className="card-title">
+                      {el.nanny.name} - <span></span> {el.nanny.age} ans
+                    </p>
 
-    {matchAPIList.map((el)=>{
-      return (
-        <div className="card">
-        <p>{el.nanny.name}</p>
-        </div>
-      )
-    })}
+                    <p className="card-text">
+                      <i class="fa-solid fa-inbox"></i> {el.nanny.email}
+                    </p>
 
-  </div>
-  )
+                    <p className="card-text">
+                      <i className="fa-solid fa-square-phone"></i>
+                      {el.nanny.phone}
+                    </p>
+                    <p className="card-text">
+                      <i className="fa-solid fa-envelope"></i>
+                      {el.nanny.address}
+                    </p>
+                    <p className="card-text">
+                      Resume: <span></span>
+                      {el.nanny.resume}
+                    </p>
+                    <p className="card-text">
+                      Avaibility: <span></span>
+                      {el.nanny.availability}
+                    </p>
+                  </div>
+                </>
+              )}
+              {currentUser.role[0] === "nanny" && (
+                <>
+                  <img
+                    src={el.family.picture}
+                    alt={el.family.name}
+                    className="card-img-top"
+                  />
+                  <div className="card-body">
+                    <p className="card-text">{el.family.name}</p>
+                    <p className="card-text">{el.family.age}</p>
+                    <p className="card-text">{el.family.email}</p>
+                    <p className="card-text">
+                      {" "}
+                      <i class="fa-solid fa-square-phone"></i>
+                      {el.family.phone}
+                    </p>
+                    <p className="card-text">{el.family.address}</p>
+                    <p className="card-text">{el.family.numberOfKids}</p>
+                    <p className="card-text">{el.family.kidsAge}</p>
+                    <p className="card-text">{el.family.description}</p>
+                    <p className="card-text">{el.nanny.availability}</p>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default UserMatchList;

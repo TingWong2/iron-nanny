@@ -74,9 +74,9 @@ const apiHandler = {
 
 	},
 
-	getAllUsers(role) {
+	getAllUsers() {
 		return service
-			.get("/api/users/" + role)
+			.get("/api/users")
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
