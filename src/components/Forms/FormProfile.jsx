@@ -19,7 +19,7 @@ const FormProfile = () => {
     description: "",
     availability: "",
     kidsNumber: 0,
-    kidsAge: 0,
+    kidsAge: "",
   });
 
   const [error, setError] = useState(null);
@@ -319,13 +319,13 @@ const FormProfile = () => {
               <div className="form-group">
                 <label htmlFor="kidsAge">Kids age</label>
                 <input
-                  placeholder="months - years"
+                  placeholder="months/years"
                   className="form-control form-control-lg"
                   onChange={(e) =>
                     setValues({ ...values, kidsAge: e.target.value })
                   }
                   value={values.kidsAge}
-                  type="number"
+                  type="text"
                   id="kidsAge"
                   name="kidsAge"
                 />

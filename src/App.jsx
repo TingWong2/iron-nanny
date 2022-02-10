@@ -23,7 +23,7 @@ function App() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/users/edit/:id" element={<FormProfile />} />
-          <Route path="/users/profile/:id" element={<Profile />} />
+          <Route path="/users/profile/" element={<Profile />} />
           <Route path="/users/family" element={<UserList />} />
           <Route path="/users/nanny" element={<UserList />} />
           {/* <Route path="/users/likes/family" element={<UserLikes />} />

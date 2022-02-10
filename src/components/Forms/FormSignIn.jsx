@@ -29,12 +29,12 @@ const FormSignIn = () => {
   };
 
   return (
-    <>
+    <div className="container">
       {error && <h3 className="error">{error.message}</h3>}
-      <form onSubmit={handleSubmit}>
+      <form className="d-flex flex-column m-5" onSubmit={handleSubmit}>
         <h2>Signin</h2>
         <label htmlFor="email">Email</label>
-        <input
+        <input 
           type="email"
           id="email"
           name="email"
@@ -49,9 +49,9 @@ const FormSignIn = () => {
           onChange={handleChange}
           value={password}
         />
-        <button>Submit</button>
+        <button className="btn-primary btn-lg align-self-center">Submit</button>
       </form>
-    </>
+    </div>
   );
 };
 

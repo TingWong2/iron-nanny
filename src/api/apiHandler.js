@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_BACKEND_URL,
-  withCredentials: true,
+	baseURL: import.meta.env.VITE_APP_BACKEND_URL,
+	withCredentials: true,
 });
 
 service.interceptors.request.use((config) => {
-  const token = localStorage.getItem("authToken");
-  config.headers.Authorization = token ? `Bearer ${token}` : "";
-  return config;
+	const token = localStorage.getItem("authToken");
+	config.headers.Authorization = token ? `Bearer ${token}` : "";
+	return config;
 });
 
 //! Error handling to use in the catch
@@ -68,11 +68,10 @@ const apiHandler = {
 	},
 
 	// Likes Persistency
-	getMatched(id) {
+	getLike(id) {
 		return service
 			.get("/api/matches/" + id)
-			.then((res) => res.data)
-			.catch(errorHandler);
+
 	},
 
 	getAllUsers(role) {
@@ -103,7 +102,7 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
-	
+
 };
 
 export default apiHandler;
