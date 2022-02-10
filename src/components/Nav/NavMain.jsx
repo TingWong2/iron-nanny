@@ -19,7 +19,7 @@ const NavMain = () => {
 
       {isLoggedIn && (
         <>
-          <NavLink to="/profile"></NavLink>
+          <NavLink to="/users/profile"></NavLink>
           <button onClick={removeUser}>Log-Out</button>
           Your role is: {currentUser && currentUser.role}
           {currentUser && currentUser.role[0] === "nanny" && (
