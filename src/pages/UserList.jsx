@@ -49,8 +49,10 @@ const [back, setBack] = useState(false);
 const [userId, setUserId] = useState("");
 
 useEffect(async () =>  {
-  const apiProfiles = await apiHandler.getAllUsers(theirRole);
-  const fetchedProfiles = [...apiProfiles];
+  const apiProfiles = await apiHandler.getAllUsers();
+  console.log(apiProfiles);
+  const apiProfilesArray = apiProfiles.users;
+  const fetchedProfiles = [...apiProfilesArray];
   setUsers(fetchedProfiles);
 }
 , []);
@@ -78,6 +80,7 @@ useEffect(async () =>  {
     const likerId = currentUser._id;
     const payload = {liker: likerId, liked: likedId};
 
+
     const handleClick = async (event) => {
       event.preventDefault();     
     const apiMatch = await apiHandler.addMatched(likedId, payload);    
@@ -88,7 +91,6 @@ useEffect(async () =>  {
 
     const apiLikedId = apiMatch._doc.liked
     setUserId({...apiLikedId});
-    console.log(isUserLiked);
      if (apiMatch.matched === true) {
       console.log("A new like has been added to the Like collection", apiMatch.matched);
       setMatched(true);
@@ -97,45 +99,63 @@ useEffect(async () =>  {
 
 
   return (
+
     <div className="container">   
+
      {matched === false && (
        <>
       <div className="card">        
-       <h1>{users[count].name} - {users[count].role}</h1>  
-       <span style={{fontSize:"0.7em"}}>liked id :{likedId}</span>
-       <span style={{fontSize:"0.7em"}}>liker id :{likerId}</span>
-      <img src={users[count].picture} alt={users[count].name}/>
-     </div>  
-     <div className = "container text-center">
-      <button onClick={ () => handleLeft() }><FontAwesomeIcon icon={faAngleLeft}/></button> 
+          <img src={users[count].picture} alt={users[count].name} />
+          <div className="card-body">
+            <h5 className="card-title">{users[count].name}</h5>
+            <p className="card-text">{users[count].age}</p>
+            <p className="card-text">{users[count].address}</p>
+            {currentUser.role[0] === "family" && ( 
+              <>
+            <p className="card-text">{users[count].resume}</p>
+            <p className="card-text">{users[count].availability}</p>
+            </>
+            )}
+            {currentUser.role[0] === "nanny" && ( 
+              <>
+            <p className="card-text">{users[count].numberOfKids}</p>
+            <p className="card-text">{users[count].kidsAge}</p>
+            <p className="card-text">{users[count].description}</p>
+            <p className="card-text">{users[count].availability}</p>
+            </>
+            )}
+            </div>
+            </div>
+
+      <div style={{display:"flex", justifyContent: "space-between"}}>
+      <a href="#" onClick={ () => handleLeft() }><FontAwesomeIcon icon={faAngleLeft} size="3x"/></a> 
      { liked === false && <FontAwesomeIcon icon={faHeart} size="5x" color="red"  onClick={handleClick}/> }
      { liked === true && (<FontAwesomeIcon icon={faCheck} size="5x" color="green"  onClick={handleClick}/>) }
-     { back === true && (<button className="btn btn-primary">Already matched </button>) }
-       <button onClick={ () => handleRight() }><FontAwesomeIcon icon={faAngleRight}/></button> 
-   </div> 
-   </>
-     )}  
+       <a href="#" onClick={ () => handleRight() }><FontAwesomeIcon icon={faAngleRight} size="3x"/></a> 
+     </div>             
+      </>
+        )}
    {matched === true && (
- <> 
- <div className="container">
-    <div className="row row-cols-1 row-cols-md-2">
+     <div>
             <div className="card">
-              <h1>It is a match ! </h1>
+              <h2>It is a match ! <i className="fas fa-heart" style={{color:"red"}}></i></h2>
+              <p>Here you are the contact informations of your mattch, feel free to contact her/him</p>
               <img src={users[count].picture} className="card-img-top" alt={users[count].name}/>
               <div className="card-body">
                 <h5 className="card-title">{users[count].name} </h5>
-                <p className="card-text"><i className="fas fa-mobile-alt mr-2"></i>{users[count].address}</p>
-                <a href="#" onClick={ () => handleLeft() }><FontAwesomeIcon icon={faAngleLeft}/></a> 
-                <a href="#" className="btn btn-primary" onClick={handleBack}>Go Back Home</a>
-                <a href="#" onClick={ () => handleRight() }><FontAwesomeIcon icon={faAngleRight}/></a> 
+                <p className="card-text"><i className="fas fa-mobile-alt mr-2"></i>{users[count].phone}</p>
+                <p className="card-text"><i className="fas fa-envelope"></i>{users[count].address}</p>
+                </div>
+
+
+                <div style={{display:"flex", justifyContent: "space-between"}}>
+                <a href="#" className="text-left" onClick={ () => handleLeft() }><FontAwesomeIcon icon={faAngleLeft} size="3x"/></a> 
+                 <FontAwesomeIcon icon={faCheck} size="5x" color="green"  onClick={handleClick}/>
+                <a href="#" onClick={ () => handleRight() }><FontAwesomeIcon icon={faAngleRight} size="3x"/></a> 
               </div>
-            </div>
+           </div>
     </div>
-</div> 
-
-   </>
    )}      
-
    </div>
 
   );
