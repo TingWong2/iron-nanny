@@ -123,16 +123,14 @@ const UserMatchList = () => {
                     alt={el.family.name}
                     className="card-img-top"
                   />
-                  <div className="card-body">
+                  <div className="card-body bg-light">
                     <p className="card-title">
                       {el.nanny.name} - <span></span> {el.family.age} ans
                     </p>
                     <p className="card-text">
-                      <i class="fa-solid fa-inbox"></i>
-                      {el.family.email}
+                      <i class="fa-solid fa-inbox"></i>{el.family.email}
                     </p>
                     <p className="card-text">
-                      {" "}
                       <i class="fa-solid fa-square-phone"></i>
                       {el.family.phone}
                     </p>
