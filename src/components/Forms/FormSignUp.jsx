@@ -17,7 +17,7 @@ const FormSignUp = () => {
     resume: "",
     description: "",
     kidsNumber: 0,
-    kidsAge: 0,
+    kidsAge: "",
   });
 
   const [role, setRole] = useState(null);
@@ -313,6 +313,7 @@ const FormSignUp = () => {
               <div className="form-group">
                 <label htmlFor="kidsAge">Kids age</label>
                 <input
+                  placeholder="months - years"
                   className="form-control form-control-lg"
                   onChange={(e) =>
                     setValues({ ...values, kidsAge: e.target.value })
