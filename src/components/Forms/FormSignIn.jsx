@@ -21,7 +21,8 @@ const FormSignIn = () => {
         console.log(res);
         storeToken(res.authToken);
         authenticateUser();
-        navigate("/");
+        console.log(currentUser);
+        navigate("/users");
       })
       .catch((e) => {
         setError(e.response.data);

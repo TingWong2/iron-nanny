@@ -4,17 +4,17 @@ import "../../styles/NavMain.css";
 
 const NavMain = () => {
   const { isLoggedIn, currentUser, removeUser } = useAuth();
-  console.log(currentUser);
+
   return (
     <nav className="NavMain navbar">
-      <NavLink className="myProfile" to="/profile">
+      <NavLink className="myProfile" to="/users/profile">
         Profile
       </NavLink>
       {currentUser && currentUser.role[0] === "nanny" && (
-        <NavLink to="/users/family"> Users</NavLink>
+        <NavLink to="/users"> Users</NavLink>
       )}
       {currentUser && currentUser.role[0] === "family" && (
-        <NavLink to="/users/nanny"> Users</NavLink>
+        <NavLink to="/users"> Users</NavLink>
       )}
 
       {isLoggedIn && (
