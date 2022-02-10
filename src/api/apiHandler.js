@@ -66,6 +66,8 @@ const apiHandler = {
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
+
+	// Likes Persistency
 	getMatched(id) {
 		return service
 			.get("/api/matches/" + id)

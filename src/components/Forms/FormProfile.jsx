@@ -24,12 +24,12 @@ const FormProfile = () => {
 
   const [error, setError] = useState(null);
 
+  const [availabilityList, setAvailabilityList] = useState([]);
+
   const navigate = useNavigate();
   const pictureRef = useRef("");
   const { currentUser } = useAuth();
   const { id } = useParams();
-
-  const [availabilityList, setAvailabilityList] = useState([]);
 
   const role = currentUser.role;
   console.log(role, ">>>>> ROLE FROM CURRENT USER FRONT");
@@ -319,6 +319,7 @@ const FormProfile = () => {
               <div className="form-group">
                 <label htmlFor="kidsAge">Kids age</label>
                 <input
+                  placeholder="months - years"
                   className="form-control form-control-lg"
                   onChange={(e) =>
                     setValues({ ...values, kidsAge: e.target.value })

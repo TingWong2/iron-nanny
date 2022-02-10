@@ -10,9 +10,6 @@ const NavMain = () => {
       <NavLink className="myProfile" to="/profile">
         Profile
       </NavLink>
-      <NavLink className="logo" to="/">
-        App name
-      </NavLink>
       {currentUser && currentUser.role[0] === "nanny" && (
         <NavLink to="/users/family"> Users</NavLink>
       )}
@@ -29,7 +26,7 @@ const NavMain = () => {
       )}
       {!isLoggedIn && (
         <>
-          <NavLink to="/signin">Log in</NavLink>
+          <NavLink to="/">Sign In</NavLink>
           <NavLink to="/signup">Sign Up</NavLink>
         </>
       )}
