@@ -48,27 +48,16 @@ const [liked, setLiked] = useState(false);
 const [back, setBack] = useState(false);
 const [userId, setUserId] = useState("");
 
-//const [clicked, setClicked]= useState(false);
-
-
 useEffect(async () =>  {
   const apiProfiles = await apiHandler.getAllUsers(theirRole);
   const fetchedProfiles = [...apiProfiles];
   setUsers(fetchedProfiles);
-
-  /*try {
-    const apiMatch = await apiHandler.getMatched(likedId);    //get on my new matches collection 
-      console.log(apiMatch);
-     
-     } catch(error) {
-       console.error(error);
-     }*/
-
 }
 , []);
 
     const handleLeft = () => {      
       setCount(((count - 1) % users.length + users.length) % users.length); 
+      // if 
       setLiked(false);
       setMatched(false);
     };
@@ -93,26 +82,17 @@ useEffect(async () =>  {
       event.preventDefault();     
     const apiMatch = await apiHandler.addMatched(likedId, payload);    
     console.log("A new like has been added to the Like collection", apiMatch.liked);
-    console.log(liked);
 
     if (apiMatch.liked === true)
     setLiked(true);
 
     const apiLikedId = apiMatch._doc.liked
     setUserId({...apiLikedId});
-    /*let isUserLiked;
-    if ((liked === true) && (userId === users[count]._id) ) {
-      isUserLiked  = true;
-    }
-    console.log(isUserLiked);*/
+    console.log(isUserLiked);
      if (apiMatch.matched === true) {
       console.log("A new like has been added to the Like collection", apiMatch.matched);
       setMatched(true);
      }  
-    
-
-
-
     }  
 
 
@@ -136,18 +116,25 @@ useEffect(async () =>  {
    </>
      )}  
    {matched === true && (
-     <>
-   <p>{users[count].name}</p>
-   <p>{currentUser.name}</p>
-   <div className = "container text-center">
-      <button onClick={ () => handleLeft() }><FontAwesomeIcon icon={faAngleLeft}/></button> 
-     <FontAwesomeIcon icon={faAddressCard} size="2x"  onClick={handleBack}/> 
-       <button onClick={ () => handleRight() }><FontAwesomeIcon icon={faAngleRight}/></button> 
-   </div> 
+ <> 
+ <div className="container">
+    <div className="row row-cols-1 row-cols-md-2">
+            <div className="card">
+              <h1>It is a match ! </h1>
+              <img src={users[count].picture} className="card-img-top" alt={users[count].name}/>
+              <div className="card-body">
+                <h5 className="card-title">{users[count].name} </h5>
+                <p className="card-text"><i className="fas fa-mobile-alt mr-2"></i>{users[count].address}</p>
+                <a href="#" onClick={ () => handleLeft() }><FontAwesomeIcon icon={faAngleLeft}/></a> 
+                <a href="#" className="btn btn-primary" onClick={handleBack}>Go Back Home</a>
+                <a href="#" onClick={ () => handleRight() }><FontAwesomeIcon icon={faAngleRight}/></a> 
+              </div>
+            </div>
+    </div>
+</div> 
 
    </>
-   )}    
-    
+   )}      
 
    </div>
 
