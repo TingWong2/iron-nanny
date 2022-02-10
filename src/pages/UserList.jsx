@@ -46,7 +46,7 @@ const UserList = () => {
       .then(({ data }) => {
         if (!data) setLiked(false);
         else setLiked(true);
-        console.log('the like state is', liked)
+        console.log("the like state is", liked);
       })
       .catch((error) => setError(error.response.message));
   }, [count, users]);
@@ -70,7 +70,7 @@ const UserList = () => {
   const payload = { liker: likerId, liked: likedId };
 
   const handleClick = async (event) => {
-    console.log('handleClick is triggered')
+    console.log("handleClick is triggered");
     event.preventDefault();
     const apiMatch = await apiHandler.addMatched(likedId, payload);
     console.log(
@@ -87,7 +87,7 @@ const UserList = () => {
       isUserLiked  = true;
     }
     console.log(isUserLiked);*/
-    
+
     if (apiMatch.matched === true) {
       console.log(
         "A new like has been added to the Like collection",
@@ -101,9 +101,9 @@ const UserList = () => {
     <div className="container">
       {matched === false && (
         <>
-          <div className="card">
+          <div className="card ">
             <img src={users[count]?.picture} alt={users[count]?.name} />
-            <div className="card-body">
+            <div className="card-body bg-light">
               <h5 className="card-title">{users[count]?.name}</h5>
               <p className="card-text">{users[count]?.age}</p>
               <p className="card-text">{users[count]?.address}</p>
@@ -128,18 +128,18 @@ const UserList = () => {
             <a href="#" onClick={() => handleLeft()}>
               <FontAwesomeIcon icon={faAngleLeft} size="3x" />
             </a>
-            {liked === false && (
-              <FontAwesomeIcon
-                icon={faHeart}
-                size="5x"
-                color="red"
+            {!liked && (
+              <i
+                className="fa-regular fa-heart"
+                style={{ fontSize: "4rem", color: "red" }}
+                color="green"
                 onClick={handleClick}
               />
             )}
             {liked && (
               <FontAwesomeIcon
-                icon={faCheck}
-                size="5x"
+                icon={faHeart}
+                style={{ fontSize: "4rem", color: "red" }}
                 color="green"
                 onClick={handleClick}
               />
@@ -148,10 +148,7 @@ const UserList = () => {
             {/* {back === true && (
               <button className="btn btn-primary">Already matched </button>
             )} */}
-            
-            <button onClick={() => handleRight()}>
-              <FontAwesomeIcon icon={faAngleRight} />
-            </button>
+
             <a href="#" onClick={() => handleRight()}>
               <FontAwesomeIcon icon={faAngleRight} size="3x" />
             </a>
@@ -174,19 +171,19 @@ const UserList = () => {
               className="card-img-top"
               alt={users[count].name}
             />
-            <div className="card-body">
-              <h5 className="card-title">{users[count].name} </h5>
+            <div className="card-body bg-light">
+              <h5 className="card-title">{users[count]?.name} </h5>
               <p className="card-text">
                 <i className="fas fa-mobile-alt mr-2"></i>
-                {users[count].phone}
+                {users[count]?.phone}
               </p>
               <p className="card-text">
                 <i className="fas fa-envelope"></i>
-                {users[count].address}
+                {users[count]?.address}
               </p>
             </div>
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
               <a href="#" className="text-left" onClick={() => handleLeft()}>
                 <FontAwesomeIcon icon={faAngleLeft} size="3x" />
               </a>
@@ -199,7 +196,7 @@ const UserList = () => {
               <a href="#" onClick={() => handleRight()}>
                 <FontAwesomeIcon icon={faAngleRight} size="3x" />
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

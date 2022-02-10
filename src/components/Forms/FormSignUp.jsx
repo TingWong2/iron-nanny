@@ -94,7 +94,9 @@ const FormSignUp = () => {
         {error && <h3 className="error">{error.message}</h3>}
 
         <form className="d-flex flex-column mb-3" onSubmit={handleSubmit}>
+          <br />
           <h2>Signup</h2>
+          <br />
 
           {/* NAME */}
           <div className="form-group">
@@ -326,10 +328,11 @@ const FormSignUp = () => {
               </div>
             </>
           )}
-
-          <button className="btn btn-lg btn-primary align-self-center">
+          <br />
+          <button className="btn btn-lg btn-secondary text-white align-self-center">
             Submit
           </button>
+          <br />
         </form>
       </div>
     </>

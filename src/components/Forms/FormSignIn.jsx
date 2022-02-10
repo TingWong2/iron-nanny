@@ -11,7 +11,7 @@ const FormSignIn = () => {
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { storeToken, authenticateUser, currentUser } = useAuth();
+  const { storeToken, authenticateUser } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,8 +21,7 @@ const FormSignIn = () => {
         console.log(res);
         storeToken(res.authToken);
         authenticateUser();
-        console.log(currentUser);
-        navigate("/users");
+        navigate("/");
       })
       .catch((e) => {
         setError(e.response.data);
@@ -32,10 +31,11 @@ const FormSignIn = () => {
   return (
     <div className="container">
       {error && <h3 className="error">{error.message}</h3>}
-      <form className="d-flex flex-column m-5" onSubmit={handleSubmit}>
+      <form className="d-flex flex-column m-3" onSubmit={handleSubmit}>
         <h2>Signin</h2>
+        <br />
         <label htmlFor="email">Email</label>
-        <input 
+        <input
           type="email"
           id="email"
           name="email"
@@ -50,7 +50,11 @@ const FormSignIn = () => {
           onChange={handleChange}
           value={password}
         />
-        <button className="btn-primary btn-lg align-self-center">Submit</button>
+        <br />
+        <button className="btn-secondary btn-lg text-white align-self-center">
+          Submit
+        </button>
+        <br />
       </form>
     </div>
   );

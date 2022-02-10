@@ -6,10 +6,7 @@ const NavMain = () => {
   const { isLoggedIn, currentUser, removeUser } = useAuth();
 
   return (
-    <nav className="NavMain navbar">
-      <NavLink className="myProfile" to="/users/profile">
-        Profile
-      </NavLink>
+    <nav className="NavMain bg-light">
       {currentUser && currentUser.role[0] === "nanny" && (
         <NavLink to="/users"> Users</NavLink>
       )}
@@ -19,20 +16,17 @@ const NavMain = () => {
 
       {isLoggedIn && (
         <>
-          <NavLink to="/users/profile"></NavLink>
-          <button onClick={removeUser}>Log-Out</button>
-          Your role is: {currentUser && currentUser.role}
-          {currentUser && currentUser.role[0] === "nanny" && (
-            <NavLink to="/users/matchlist/family">Matches</NavLink>
-          )}
-          {currentUser && currentUser.role[0] === "family" && (
-            <NavLink to="/users/matchlist/nanny">Matches</NavLink>
-          )}
+          <NavLink to="/">Home</NavLink>
+          <NavLink className="myProfile" to="/users/profile">Profile</NavLink>
+          <NavLink to="#" onClick={removeUser}>
+            Log-Out
+          </NavLink>
+          <NavLink to="/users/matchlist">Matches</NavLink>
         </>
       )}
       {!isLoggedIn && (
         <>
-          <NavLink to="/">Sign In</NavLink>
+          <NavLink to="/">Home</NavLink>
           <NavLink to="/signup">Sign Up</NavLink>
         </>
       )}

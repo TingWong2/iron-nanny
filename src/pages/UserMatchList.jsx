@@ -88,7 +88,7 @@ const UserMatchList = () => {
                     alt={el.nanny.name}
                     className="card-img-top"
                   />
-                  <div className="card-body">
+                  <div className="card-body bg-light">
                     <p className="card-title">
                       {el.nanny.name} - <span></span> {el.nanny.age} ans
                     </p>

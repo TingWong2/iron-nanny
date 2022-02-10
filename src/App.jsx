@@ -8,7 +8,6 @@ import PrivateRoute from "./components/ProtectedRoute/PrivateRoute";
 import UserLikes from "./pages/UserLikes";
 import UserList from "./pages/UserList";
 import UserMatchList from "./pages/UserMatchList";
-import UserMatch from "./pages/UserMatch";
 import FormProfile from "./components/Forms/FormProfile";
 import List from "./pages/List";
 

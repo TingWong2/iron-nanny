@@ -8,25 +8,22 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "../styles/userMatchList.css";
 
-
 const Profile = () => {
   const { currentUser, removeUser } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   console.log("this is the current user from auth", currentUser);
 
-
   async function handleDelete() {
+    const userID = currentUser._id;
 
-    const userID = currentUser._id
-
-    const endpoint = `/api/users/${userID}`
+    const endpoint = `/api/users/${userID}`;
     try {
-      const deletedUser = await apiHandler.deleteUser(endpoint)
-      console.log('deletedUser', deletedUser)
-      alert("votre profil va être supprimé...")
-      removeUser()
+      const deletedUser = await apiHandler.deleteUser(endpoint);
+      console.log("deletedUser", deletedUser);
+      alert("votre profil va être supprimé...");
+      removeUser();
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -39,23 +36,30 @@ const Profile = () => {
             alt="profile.name"
             className="card-img-top"
           />
-          <div className="card-body">
+          <div className="card-body bg-light">
             <h5 className="card-title">{currentUser.name}</h5>
             <p className="card-text">{currentUser.age}</p>
-            <p className="card-text"><i class="fa-solid fa-inbox"></i>{currentUser.address}</p>
-            <p className="card-text"><i className="fa-solid fa-square-phone"></i>{currentUser.phone}</p>
             <p className="card-text">
-                      <i className="fa-solid fa-envelope"></i>
-                      {currentUser.address}
-                    </p>
+              <i class="fa-solid fa-inbox"></i>
+              {currentUser.address}
+            </p>
+            <p className="card-text">
+              <i className="fa-solid fa-square-phone"></i>
+              {currentUser.phone}
+            </p>
+            <p className="card-text">
+              <i className="fa-solid fa-envelope"></i>
+              {currentUser.address}
+            </p>
             <p className="card-text">Resume:{currentUser.resume}</p>
             <p className="card-text">Available: {currentUser.availability}</p>
             <FontAwesomeIcon icon={faEdit} />
             <a href={`/users/edit/${currentUser._id}`} target="_top">
               Update my profile
             </a>
+            <br />
             <FontAwesomeIcon icon={faTrash} />
-            <button onClick={handleDelete}><FontAwesomeIcon icon={faTrash} /> Delete </button>
+            <a onClick={handleDelete}> Delete </a>
           </div>
         </div>
       )}
@@ -67,20 +71,30 @@ const Profile = () => {
             alt="profile.name"
             className="card-img-top"
           />
-          <div className="card-body">
+          <div className="card-body bg-light">
             <h1 className="card-title">{currentUser.name}</h1>
-            <p className="card-text"><i class="fa-solid fa-inbox"></i> {currentUser.email}</p>
-            <p className="card-text"><i className="fa-solid fa-envelope"></i>{currentUser.address}</p>
-            <p className="card-text"><i className="fa-solid fa-square-phone"></i>{currentUser.phone}</p>
-            <p className="card-text">Number of kids: {currentUser.numberOfKids}</p>
+            <p className="card-text">
+              <i class="fa-solid fa-inbox"></i> {currentUser.email}
+            </p>
+            <p className="card-text">
+              <i className="fa-solid fa-envelope"></i>
+              {currentUser.address}
+            </p>
+            <p className="card-text">
+              <i className="fa-solid fa-square-phone"></i>
+              {currentUser.phone}
+            </p>
+            <p className="card-text">
+              Number of kids: {currentUser.numberOfKids}
+            </p>
             <p className="card-text">Kids age: {currentUser.kidsAge}</p>
             <p className="card-text">Available: {currentUser.availability}</p>
             <p className="card-text">{currentUser.description}</p>
             <FontAwesomeIcon icon={faEdit} />
-            <a href={`/users/edit/${currentUser._id}`}>
-              Update my profile
-            </a> <br />
-            <button onClick={handleDelete}><FontAwesomeIcon icon={faTrash} /> Delete </button>
+            <a href={`/users/edit/${currentUser._id}`}>Update my profile</a>
+            <br />
+            <FontAwesomeIcon icon={faTrash} />
+            <a onClick={handleDelete}> Delete </a>
           </div>
         </div>
       )}
