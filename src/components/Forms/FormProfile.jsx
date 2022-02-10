@@ -29,6 +29,8 @@ const FormProfile = () => {
   const { currentUser } = useAuth();
   const { id } = useParams();
 
+  const [availabilityList, setAvailabilityList] = useState([]);
+
   const role = currentUser.role;
   console.log(role, ">>>>> ROLE FROM CURRENT USER FRONT");
   const currentId = currentUser._id;

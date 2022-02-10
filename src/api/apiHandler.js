@@ -100,6 +100,8 @@ const apiHandler = {
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
+
+	
 };
 
 export default apiHandler;
