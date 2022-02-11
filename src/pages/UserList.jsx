@@ -11,7 +11,7 @@ import {
   faAngleRight,
   faAddressCard,
 } from "@fortawesome/free-solid-svg-icons";
-import { matchedSound } from "../assets/success.wav";
+//import { matchedSound } from "../assets/success.wav";
 
 const UserList = () => {
   const [count, setCount] = useState(0);
@@ -30,10 +30,7 @@ const UserList = () => {
   const [back, setBack] = useState(false);
   const [userId, setUserId] = useState("");
 
-  const audioElement = document.getElementById("matched-sound");
-  const sound = audioElement.src;
-
-  [sound, setSound] = useState("");
+  //const audioElement = document.getElementById("matched-sound");
 
   //const [clicked, setClicked]= useState(false);
 
@@ -99,7 +96,7 @@ const UserList = () => {
         "A new like has been added to the Like collection",
         apiMatch.matched
       );
-      setSound(matchedSound);
+      //audioElement.play();
       setMatched(true);
     }
   };
@@ -185,9 +182,7 @@ const UserList = () => {
           </div>
           <div>
             {" "}
-            <audio src="#" id="matched-sound">
-              {" "}
-            </audio>{" "}
+            {/* <audio src={matchedSound} id="matched-sound"></audio>*/}
           </div>
         </>
       )}
