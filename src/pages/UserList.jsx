@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 import apiHandler from "../api/apiHandler";
@@ -11,11 +11,12 @@ import {
   faAngleRight,
   faAddressCard,
 } from "@fortawesome/free-solid-svg-icons";
-//import { matchedSound } from "../assets/success.wav";
+
+import matchedSound from "../assets/success.wav";
 
 const UserList = () => {
   const [count, setCount] = useState(0);
-
+  const [audio, setAudio] = useState("");
   const { currentUser } = useAuth();
 
   let role = currentUser.role;
@@ -35,6 +36,7 @@ const UserList = () => {
   //const [clicked, setClicked]= useState(false);
 
   useEffect(async () => {
+    setAudio(new Audio(matchedSound));
     const apiProfiles = await apiHandler.getAllUsers();
     console.log(apiProfiles);
     const apiProfilesArray = apiProfiles.users;
@@ -96,7 +98,8 @@ const UserList = () => {
         "A new like has been added to the Like collection",
         apiMatch.matched
       );
-      //audioElement.play();
+
+      audio.play();
       setMatched(true);
     }
   };
@@ -179,10 +182,6 @@ const UserList = () => {
             <a href="#" onClick={() => handleRight()}>
               <FontAwesomeIcon icon={faAngleRight} size="3x" />
             </a>
-          </div>
-          <div>
-            {" "}
-            {/* <audio src={matchedSound} id="matched-sound"></audio>*/}
           </div>
         </>
       )}

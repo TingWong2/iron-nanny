@@ -7,7 +7,7 @@ const Home = () => {
       <div className="container-fluid">
         <div className="jumbotron jumbotron-fluid">
           <div className="container text-center">
-            <h1 className="display-4">Welcome to Super Nounou!</h1>
+            <h1 className="display-4">Welcome to Iron Nanny!</h1>
           </div>
         </div>
       </div>

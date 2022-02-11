@@ -28,7 +28,7 @@ const FormProfile = () => {
 
   const navigate = useNavigate();
   const pictureRef = useRef("");
-  const { currentUser } = useAuth();
+  const { currentUser, storeToken } = useAuth();
   const { id } = useParams();
 
   const role = currentUser.role;
@@ -87,7 +87,7 @@ const FormProfile = () => {
     formData.append("name", name);
     formData.append("age", age);
     formData.append("email", email);
-    formData.append("password", password);
+    //formData.append("password", password);
     formData.append("address", address);
     formData.append("phone", phone);
     formData.append("experience", experience);
@@ -101,9 +101,9 @@ const FormProfile = () => {
     console.log(formData, ">>>>> EDIT DATA FROM FRONT");
 
     apiHandler
-      .updateUser(currentId, formData)
-      .then(() => {
-        navigate("/users/profile");
+      .updateUser(formData, currentId)
+      .then((token) => {
+        storeToken(token.authToken, () => navigate("/users/profile"));
       })
       .catch((error) => setError(error.response.message));
   };

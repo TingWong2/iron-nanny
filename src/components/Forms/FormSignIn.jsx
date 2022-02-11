@@ -20,8 +20,10 @@ const FormSignIn = () => {
       .then((res) => {
         console.log(res);
         storeToken(res.authToken);
-        authenticateUser();
-        navigate("/");
+        authenticateUser(() => {
+          console.log("i am in the callback!");
+          navigate("/users");
+        });
       })
       .catch((e) => {
         setError(e.response.data);
