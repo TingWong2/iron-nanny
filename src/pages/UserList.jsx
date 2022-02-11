@@ -11,6 +11,7 @@ import {
   faAngleRight,
   faAddressCard,
 } from "@fortawesome/free-solid-svg-icons";
+import { matchedSound } from "../assets/success.wav";
 
 const UserList = () => {
   const [count, setCount] = useState(0);
@@ -28,6 +29,11 @@ const UserList = () => {
   const [liked, setLiked] = useState(false);
   const [back, setBack] = useState(false);
   const [userId, setUserId] = useState("");
+
+  const audioElement = document.getElementById("matched-sound");
+  const sound = audioElement.src;
+
+  [sound, setSound] = useState("");
 
   //const [clicked, setClicked]= useState(false);
 
@@ -93,6 +99,7 @@ const UserList = () => {
         "A new like has been added to the Like collection",
         apiMatch.matched
       );
+      setSound(matchedSound);
       setMatched(true);
     }
   };
@@ -104,21 +111,44 @@ const UserList = () => {
           <div className="card ">
             <img src={users[count]?.picture} alt={users[count]?.name} />
             <div className="card-body bg-light">
-              <h5 className="card-title">{users[count]?.name}</h5>
-              <p className="card-text">{users[count]?.age}</p>
-              <p className="card-text">{users[count]?.address}</p>
+              <h1 className="card-title">
+                {users[count]?.name} {users[count]?.age} ans
+              </h1>
+
+              <p className="card-text">
+                <i className="fa-solid fa-envelope"></i> {users[count]?.address}
+              </p>
               {currentUser.role[0] === "family" && (
                 <>
-                  <p className="card-text">{users[count]?.resume}</p>
-                  <p className="card-text">{users[count]?.availability}</p>
+                  <p className="card-text">
+                    {" "}
+                    <i class="fa-regular fa-address-card"></i>Resume:{" "}
+                    {users[count]?.resume}
+                  </p>
+                  <p className="card-text">
+                    <i class="fa-regular fa-calendar"></i>Availability:{" "}
+                    {users[count]?.availability}
+                  </p>
                 </>
               )}
               {currentUser.role[0] === "nanny" && (
                 <>
-                  <p className="card-text">{users[count]?.numberOfKids}</p>
-                  <p className="card-text">{users[count]?.kidsAge}</p>
-                  <p className="card-text">{users[count]?.description}</p>
-                  <p className="card-text">{users[count]?.availability}</p>
+                  <p className="card-text">
+                    <i class="fa-solid fa-child"></i> Number of kids:{" "}
+                    {users[count]?.numberOfKids}
+                  </p>
+                  <p className="card-text">
+                    <i class="fa-solid fa-baby-carriage"></i>Kids age:{" "}
+                    {users[count]?.kidsAge}
+                  </p>
+                  <p className="card-text">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    Description: {users[count]?.description}
+                  </p>
+                  <p className="card-text">
+                    <i class="fa-regular fa-calendar"></i>Availability:{" "}
+                    {users[count]?.availability}
+                  </p>
                 </>
               )}
             </div>
@@ -152,6 +182,12 @@ const UserList = () => {
             <a href="#" onClick={() => handleRight()}>
               <FontAwesomeIcon icon={faAngleRight} size="3x" />
             </a>
+          </div>
+          <div>
+            {" "}
+            <audio src="#" id="matched-sound">
+              {" "}
+            </audio>{" "}
           </div>
         </>
       )}

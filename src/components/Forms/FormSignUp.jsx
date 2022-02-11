@@ -16,7 +16,7 @@ const FormSignUp = () => {
     experience: "",
     resume: "",
     description: "",
-    kidsNumber: 0,
+    numberOfKids: 0,
     kidsAge: "",
   });
 
@@ -56,7 +56,7 @@ const FormSignUp = () => {
       experience,
       resume,
       description,
-      kidsNumber,
+      numberOfKids,
       kidsAge,
     } = values;
 
@@ -71,7 +71,7 @@ const FormSignUp = () => {
     formData.append("experience", experience);
     formData.append("resume", resume);
     formData.append("description", description);
-    formData.append("kidsNumber", kidsNumber);
+    formData.append("numberOfKids", numberOfKids);
     formData.append("kidsAge", kidsAge);
 
     formData.append("role", role);
@@ -296,18 +296,18 @@ const FormSignUp = () => {
             <>
               {/* KIDS NUMBER*/}
               <div className="form-group">
-                <label htmlFor="kidsNumber">Number of kids</label>
+                <label htmlFor="numberOfKids">Number of kids</label>
                 <input
                   className="form-control form-control-lg"
                   onChange={(e) =>
-                    setValues({ ...values, kidsNumber: e.target.value })
+                    setValues({ ...values, numberOfKids: e.target.value })
                   }
-                  value={values.kidsNumber}
+                  value={values.numberOfKids}
                   type="number"
                   min="1"
                   max="5"
-                  id="kidsNumber"
-                  name="kidsNumber"
+                  id="numberOfKids"
+                  name="numberOfKids"
                 />
               </div>
 

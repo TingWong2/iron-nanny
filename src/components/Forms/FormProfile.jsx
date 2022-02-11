@@ -18,7 +18,7 @@ const FormProfile = () => {
     resume: "",
     description: "",
     availability: "",
-    kidsNumber: 0,
+    numberOfKids: 0,
     kidsAge: "",
   });
 
@@ -58,7 +58,7 @@ const FormProfile = () => {
       resume,
       description,
       availability,
-      kidsNumber,
+      numberOfKids,
       kidsAge,
     } = currentUser;
 
@@ -79,7 +79,7 @@ const FormProfile = () => {
       resume,
       description,
       availability,
-      kidsNumber,
+      numberOfKids,
       kidsAge,
     } = values;
 
@@ -94,7 +94,7 @@ const FormProfile = () => {
     formData.append("resume", resume);
     formData.append("description", description);
     formData.append("availability", availability);
-    formData.append("kidsNumber", kidsNumber);
+    formData.append("numberOfKids", numberOfKids);
     formData.append("kidsAge", kidsAge);
 
     formData.append("picture", pictureRef.current.files[0]);
@@ -302,18 +302,18 @@ const FormProfile = () => {
             <>
               {/* KIDS NUMBER */}
               <div className="form-group">
-                <label htmlFor="kidsNumber">Number of kids</label>
+                <label htmlFor="numberOfKids">Number of kids</label>
                 <input
                   className="form-control form-control-lg"
                   onChange={(e) =>
-                    setValues({ ...values, kidsNumber: e.target.value })
+                    setValues({ ...values, numberOfKids: e.target.value })
                   }
-                  value={values.kidsNumber}
+                  value={values.numberOfKids}
                   type="number"
                   min="1"
                   max="5"
-                  id="kidsNumber"
-                  name="kidsNumber"
+                  id="numberOfKids"
+                  name="numberOfKids"
                 />
               </div>
 

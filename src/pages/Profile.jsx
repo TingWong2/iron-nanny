@@ -37,22 +37,21 @@ const Profile = () => {
             className="card-img-top"
           />
           <div className="card-body bg-light">
-            <h5 className="card-title">{currentUser.name}</h5>
-            <p className="card-text">{currentUser.age}</p>
-            <p className="card-text">
+            <h1 className="card-title">{currentUser.name} {currentUser.age}</h1>
+            <p className="card-text"> {"  "}{" "}
               <i class="fa-solid fa-inbox"></i>
               {currentUser.address}
             </p>
             <p className="card-text">
-              <i className="fa-solid fa-square-phone"></i>
+              <i className="fa-solid fa-square-phone"></i>{"  "}{" "}
               {currentUser.phone}
             </p>
             <p className="card-text">
-              <i className="fa-solid fa-envelope"></i>
+              <i className="fa-solid fa-envelope"></i>{"  "}{" "}
               {currentUser.address}
             </p>
-            <p className="card-text">Resume:{currentUser.resume}</p>
-            <p className="card-text">Available: {currentUser.availability}</p>
+            <p className="card-text">   <i class="fa-regular fa-address-card"></i>{"  "}{" "}Resume:{currentUser.resume}</p>
+            <p className="card-text"><i class="fa-regular fa-calendar"></i> {"  "}{" "}Availability: {currentUser.availability}</p>
             <FontAwesomeIcon icon={faEdit} />
             <a href={`/users/edit/${currentUser._id}`} target="_top">
               Update my profile
@@ -72,24 +71,24 @@ const Profile = () => {
             className="card-img-top"
           />
           <div className="card-body bg-light">
-            <h1 className="card-title">{currentUser.name}</h1>
+            <h1 className="card-title">{currentUser.name}{"  "} {" "}{currentUser.age}</h1>
             <p className="card-text">
-              <i class="fa-solid fa-inbox"></i> {currentUser.email}
+              <i class="fa-solid fa-inbox"></i>{" "} {" "}{currentUser.email}
             </p>
             <p className="card-text">
-              <i className="fa-solid fa-envelope"></i>
+              <i className="fa-solid fa-envelope"></i> {"  "}{" "}
               {currentUser.address}
             </p>
             <p className="card-text">
-              <i className="fa-solid fa-square-phone"></i>
+              <i className="fa-solid fa-square-phone"></i> {"  "}{" "}
               {currentUser.phone}
             </p>
             <p className="card-text">
-              Number of kids: {currentUser.numberOfKids}
+            <i class="fa-solid fa-child"></i>{" "}{" "}Number of kids: {currentUser.numberOfKids}
             </p>
-            <p className="card-text">Kids age: {currentUser.kidsAge}</p>
-            <p className="card-text">Available: {currentUser.availability}</p>
-            <p className="card-text">{currentUser.description}</p>
+            <p className="card-text"> <i class="fa-solid fa-baby-carriage"></i> {"  "} {" "}Kids age: {currentUser.kidsAge}</p>
+            <p className="card-text"><i class="fa-regular fa-calendar"></i> {"  "}{" "} Availability: {currentUser.availability}</p>
+            <p className="card-text"><i class="fa-regular fa-comment-dots"></i>{" "} {"  "} Description: {currentUser.description}</p>
             <FontAwesomeIcon icon={faEdit} />
             <a href={`/users/edit/${currentUser._id}`}>Update my profile</a>
             <br />

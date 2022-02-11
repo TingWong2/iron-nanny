@@ -106,11 +106,11 @@ const UserMatchList = () => {
                       {el.nanny.address}
                     </p>
                     <p className="card-text">
-                      Resume: <span></span>
+                    <i class="fa-regular fa-address-card"></i>Resume: <span></span>
                       {el.nanny.resume}
                     </p>
                     <p className="card-text">
-                      Avaibility: <span></span>
+                    <i class="fa-regular fa-calendar"></i> Availability: <span></span>
                       {el.nanny.availability}
                     </p>
                   </div>
@@ -125,10 +125,12 @@ const UserMatchList = () => {
                   />
                   <div className="card-body bg-light">
                     <p className="card-title">
-                      {el.nanny.name} - <span></span> {el.family.age} ans
+                      {el.family.name} - <span></span>
+                      {el.family.age} ans
                     </p>
                     <p className="card-text">
-                      <i class="fa-solid fa-inbox"></i>{el.family.email}
+                      <i class="fa-solid fa-inbox"></i>
+                      {el.family.email}
                     </p>
                     <p className="card-text">
                       <i class="fa-solid fa-square-phone"></i>
@@ -138,11 +140,11 @@ const UserMatchList = () => {
                       <i className="fa-solid fa-envelope"></i>
                       {el.family.address}
                     </p>
-                    <p className="card-text">Number of kids: <span></span>{el.family.numberOfKids}</p>
-                    <p className="card-text">Kids age: <span></span>{el.family.kidsAge}</p>
-                    <p className="card-text">Description: <span></span> {el.family.description}</p>
+                    <p className="card-text"> <i class="fa-solid fa-child" style={{paddingRight: "0.5rem"}}></i> Number of kids: <span></span>{el.family.numberOfKids}</p>
+                    <p className="card-text"><i class="fa-solid fa-baby-carriage"></i> <span></span> Kids age: <span></span>{el.family.kidsAge}</p>
+                    <p className="card-text"><i class="fa-regular fa-comment-dots"></i> Description: <span></span> {el.family.description}</p>
                     <p className="card-text">
-                      Avaibility: <span></span>
+                    <i class="fa-regular fa-calendar"></i> Availability: <span></span>
                       {el.family.availability}
                     </p>
                   </div>
